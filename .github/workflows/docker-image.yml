@@ -18,8 +18,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      run: docker build . --file Dockerfile --tag $LATEST_TAG
-    - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    - run: docker push $LATEST_TAG
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
+        push: true
+        tags: $LATEST_TAG
