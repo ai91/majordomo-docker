@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-#    - run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - run: docker build . --file Dockerfile --tag $LATEST_TAG
+#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag $LATEST_TAG
     - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - run: docker push $LATEST_TAG
