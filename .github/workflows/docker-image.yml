@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env: 
-      LATEST_TAG: ai91/majordomo:latest
+      LATEST_TAG: ai91/majordomo-docker:latest
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
