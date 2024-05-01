@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env: 
+      LATEST_TAG: ai91/majordomo:latest
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+#    - run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - run: docker build . --file Dockerfile --tag $LATEST_TAG
+    - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - run: docker push $LATEST_TAG
