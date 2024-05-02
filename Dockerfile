@@ -7,4 +7,4 @@ COPY majordomo /var/www/html
 
 COPY config-docker.php /var/www/html/config.php
 
-CMD ["/usr/local/bin/majordomo.sh"]
+CMD ["/bin/sh", "/usr/local/bin/majordomo.sh"]
