@@ -52,8 +52,8 @@ define_docker('GIT_URL', 'https://github.com/sergejey/majordomo/');
 define_docker('MASTER_UPDATE_URL', GIT_URL.'archive/master.tar.gz');
 define_docker('GETURL_WARNING_TIMEOUT',5);
 
-$restart_threads = explode(getenv_docker('MAJORDOMO_RESTART_THREADS', 'cycle_execs.php,cycle_main.php,cycle_ping.php,cycle_scheduler.php,cycle_states.php,cycle_webvars.php'));
-$aditional_git_urls = explode(getenv_docker('MAJORDOMO_ADITIONAL_GIT_URLS', ''));
+$restart_threads = explode(',', getenv_docker('MAJORDOMO_RESTART_THREADS', 'cycle_execs.php,cycle_main.php,cycle_ping.php,cycle_scheduler.php,cycle_states.php,cycle_webvars.php'));
+$aditional_git_urls = explode(',', getenv_docker('MAJORDOMO_ADITIONAL_GIT_URLS', ''));
 
 define_docker('USE_PROXY', null);
 define_docker('USE_PROXY_AUTH', null);
