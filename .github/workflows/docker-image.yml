@@ -11,8 +11,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env: 
-      LATEST_TAG: ai91/majordomo-docker:latest
 
     steps:
     - uses: actions/checkout@v4
@@ -31,4 +29,4 @@ jobs:
         context: .
         platforms: linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x
         push: true
-        tags: $LATEST_TAG
+        tags: ai91/majordomo-docker:latest
