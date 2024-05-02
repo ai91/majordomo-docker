@@ -7,4 +7,4 @@ if [ -z "$(ls -A /var/www/html/cms)" ]; then
     cp -r /var/www/html/cms.default/* /var/www/html/cms/
 fi
 
-/usr/local/bin/docker-php-entrypoint
+/usr/local/bin/apache2-foreground

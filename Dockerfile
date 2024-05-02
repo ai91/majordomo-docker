@@ -7,4 +7,4 @@ COPY majordomo /var/www/html
 
 COPY config-docker.php /var/www/html/config.php
 
-ENTRYPOINT ["sh", "/usr/local/bin/majordomo.sh"]
+CMD ["/usr/local/bin/majordomo.sh"]
