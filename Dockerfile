@@ -1,7 +1,7 @@
 #FROM ubuntu:22.04
 FROM php:7.4.25-apache
 
-RUN apt-get install php-mysql
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
 COPY majordomo.sh /usr/local/bin/
 
