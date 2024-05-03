@@ -1,7 +1,7 @@
 #FROM ubuntu:22.04
 FROM php:7.4.25-apache
 
-RUN apk add --no-cache mysql-client
+RUN apt-get install php-mysql
 
 COPY majordomo.sh /usr/local/bin/
 
