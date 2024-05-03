@@ -41,7 +41,7 @@ define_docker('UPDATES_REPOSITORY_NAME', 'smarthome');
 define_docker('PROJECT_TITLE', 'MajordomoSL');
 define_docker('PROJECT_BUGTRACK', "bugtrack@smartliving.ru");
 define_docker('DOC_ROOT', dirname(__FILE__));              // Your htdocs location (should be detected automatically)
-define_docker('SERVER_ROOT', '/var/www');
+define_docker('SERVER_ROOT', '/var/www/html');
 define_docker('PATH_TO_PHP', 'php');
 define_docker('PATH_TO_MYSQLDUMP', "mysqldump");
 define_docker('BASE_URL', 'http://127.0.0.1:80');              
