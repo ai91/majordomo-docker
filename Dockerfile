@@ -5,6 +5,8 @@ RUN docker-php-ext-install mysqli && docker-php-ext-install sockets && docker-ph
 
 COPY majordomo.sh /usr/local/bin/
 
+COPY majordomo.init.d /etc/init.d/majordomo
+
 COPY majordomo /var/www/html
 
 COPY config-docker.php /var/www/html/config.php
