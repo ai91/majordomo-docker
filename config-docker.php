@@ -55,6 +55,7 @@ define_docker('GETURL_WARNING_TIMEOUT',5);
 $restart_threads = explode(',', getenv_docker('MAJORDOMO_RESTART_THREADS', 'cycle_execs.php,cycle_main.php,cycle_ping.php,cycle_scheduler.php,cycle_states.php,cycle_webvars.php'));
 $aditional_git_urls = explode(',', getenv_docker('MAJORDOMO_ADITIONAL_GIT_URLS', ''));
 
+define_docker('WEBSOCKETS_PORT', null);
 define_docker('USE_PROXY', null);
 define_docker('USE_PROXY_AUTH', null);
 define_docker('HISTORY_NO_OPTIMIZE', null);
