@@ -8,5 +8,6 @@ COPY majordomo.sh /usr/local/bin/
 COPY majordomo /var/www/html
 
 COPY config-docker.php /var/www/html/config.php
+COPY db_terminal_init.php /var/www/html/db_terminal_init.php
 
 CMD ["/bin/sh", "/usr/local/bin/majordomo.sh"]
