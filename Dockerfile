@@ -7,6 +7,8 @@ COPY majordomo.sh /usr/local/bin/
 
 COPY majordomo.init.d /etc/init.d/majordomo
 
+RUN chmod 0755 /etc/init.d/majordomo
+
 COPY majordomo /var/www/html
 
 COPY config-docker.php /var/www/html/config.php
