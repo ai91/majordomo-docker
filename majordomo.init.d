@@ -13,7 +13,7 @@ dir="/var/www/html/"
 user="root"
 cmd="php /var/www/html/cycle.php"
 
-name='basename $0'
+name='majordomo'
 pid_file="/var/run/$name.pid"
 stdout_log="/var/log/$name.log"
 stderr_log="/var/log/$name.err"
@@ -33,6 +33,8 @@ case "$1" in
     else
         echo "Starting $name"
         cd "$dir"
+
+/bin/sh /root/env.sh
 
 (while true; do
     $cmd
