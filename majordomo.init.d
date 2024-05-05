@@ -23,7 +23,7 @@ get_pid() {
 }
 
 is_running() {
-    [ -f "$pid_file" ] && ps 'get_pid' > /dev/null 2>&1
+    [ -f "$pid_file" ] && ps `get_pid` > /dev/null 2>&1
 }
 
 case "$1" in
@@ -59,7 +59,7 @@ done)>> "$stdout_log" 2>> "$stderr_log" &
           t=$((t+1))
           sleep 5
         done
-        kill 'get_pid'
+        kill `get_pid`
         pkill php
         for i in {1..10}
         do
