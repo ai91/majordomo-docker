@@ -34,7 +34,7 @@ case "$1" in
         echo "Starting $name"
         cd "$dir"
 
-/bin/sh /root/env.sh
+. /root/env.sh
 
 (while true; do
     $cmd
