@@ -35,7 +35,7 @@ case "$1" in
         cd "$dir"
 
 (while true; do
-    sudo -u "$user" $cmd
+    $cmd
 done)>> "$stdout_log" 2>> "$stderr_log" &
 
         echo $! > "$pid_file"
@@ -48,9 +48,9 @@ done)>> "$stdout_log" 2>> "$stderr_log" &
     stop)
     if is_running; then
         echo -n "Stopping MajorDoMo $name.."
-        sudo touch /var/www/html/reboot
-        sudo chown www-data:www-data /var/www/html/reboot
-        sudo chmod 666 /var/www/html/reboot
+        touch /var/www/html/reboot
+        chown www-data:www-data /var/www/html/reboot
+        chmod 666 /var/www/html/reboot
        # wait until file deleted, but not longer than  5 minutes
         t=0
         while [  "$t" -lt 60 -a -e /var/www/html/reboot ]; do
@@ -58,7 +58,7 @@ done)>> "$stdout_log" 2>> "$stderr_log" &
           sleep 5
         done
         kill 'get_pid'
-        sudo killall php
+        pkill php
         for i in {1..10}
         do
             if ! is_running; then
@@ -81,7 +81,7 @@ done)>> "$stdout_log" 2>> "$stderr_log" &
         fi
     else
         echo "Not running"
-        sudo killall php
+        pkill php
     fi
     ;;
     restart)
