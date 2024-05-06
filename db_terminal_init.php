@@ -5,7 +5,7 @@
 
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-if(!$mysqli->query("DESCRIBE settings")) {
+if(!$mysqli->query("DESCRIBE classes")) {
 	echo "Initializing database with db_terminal.sql content..." . PHP_EOL;
 	$sql = file_get_contents('db_terminal.sql');
 	if ($mysqli->multi_query($sql)) {
