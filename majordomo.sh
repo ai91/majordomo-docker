@@ -18,6 +18,8 @@ if [ -z "$(ls -A /var/www/html/modules)" ]; then
     find /var/www/html/modules/ -type f -exec /bin/sh -c "chmod 666 {} && chown www-data:www-data {}" \;
 fi
 
+php /var/www/html/db_terminal_init.php
+
 export -p > /root/env.sh
 service majordomo start
 

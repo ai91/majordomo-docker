@@ -88,4 +88,3 @@ define_docker('BACKUP_FILES_EXPIRE', null);
 define_docker('CACHED_FILES_EXPIRE', null);
 define_docker('SETTINGS_ERRORS_KEEP_HISTORY', null);
 
-include_once("./db_terminal_init.php");
