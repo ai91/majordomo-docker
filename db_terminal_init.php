@@ -3,7 +3,11 @@
 * Initializes db_terminal database for new installations
 */
 
+chdir(dirname(__FILE__));
+
 include_once("./config.php");
+
+echo "DB_HOST = " . DB_HOST . PHP_EOL;
 
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
