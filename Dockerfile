@@ -3,6 +3,8 @@ FROM php:7.4.25-apache
 
 RUN docker-php-ext-install mysqli && docker-php-ext-install sockets && docker-php-ext-enable mysqli && a2enmod rewrite
 
+RUN apt update && apt install -y iputils-ping
+
 COPY majordomo.sh /usr/local/bin/
 
 COPY majordomo.init.d /etc/init.d/majordomo
