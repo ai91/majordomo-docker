@@ -7,26 +7,21 @@ chdir(dirname(__FILE__));
 
 include_once("./config.php");
 
-// temporary for debugging purposes. TODO remove this echoes
-echo "DB_HOST = " . DB_HOST . PHP_EOL;
-echo "DB_USER = " . DB_USER . PHP_EOL;
-echo "DB_PASSWORD = " . DB_PASSWORD . PHP_EOL;
-echo "DB_NAME = " . DB_NAME . PHP_EOL;
-
-$retryInterval = 5;
-$maxRetries = 10;
+// keep trying to connect during 2 minutes
+$retryInterval = 6;
+$maxRetries = 20;
 $retryCount = 0;
 
 echo "Initializing database with db_terminal.sql content..." . PHP_EOL;
 while ($retryCount < $maxRetries) {
 	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if ($mysqli->connect_error) {
-		echo "Connection failed: " . $mysqli->connect_error . "\n";
-		echo "Retrying in $retryInterval seconds...\n";
+		echo "Connection failed: " . $mysqli->connect_error . ". Is database still starting up?" . PHP_EOL;
+		echo "Retrying in $retryInterval seconds..." . PHP_EOL;
 		sleep($retryInterval);
 		$retryCount++;
 	} else {
-		echo "Connected successfully!\n";
+		echo "Connected successfully." . PHP_EOL;
 		if(!$mysqli->query("DESCRIBE classes")) {
 			$sql = file_get_contents('db_terminal.sql');
 			if ($mysqli->multi_query($sql)) {
@@ -51,6 +46,6 @@ while ($retryCount < $maxRetries) {
 }
 
 if ($retryCount === $maxRetries) {
-	echo "Unable to connect to the database after $maxRetries retries. Exiting...\n";
+	echo "Unable to connect to the database after $maxRetries retries. Exiting..." . PHP_EOL;
 	exit(1);
 }
