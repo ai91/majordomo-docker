@@ -1,4 +1,3 @@
-#FROM ubuntu:22.04
 FROM php:7.4.25-apache
 
 RUN docker-php-ext-install mysqli && docker-php-ext-install sockets && docker-php-ext-enable mysqli && a2enmod rewrite

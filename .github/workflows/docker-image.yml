@@ -23,6 +23,8 @@ jobs:
       run: mv majordomo/cms majordomo/cms.default && mkdir majordomo/cms
     - name: Rename default modules directory
       run: mv majordomo/modules majordomo/modules.default && mkdir majordomo/modules
+    - name: Rename default scripts directory
+      run: mv majordomo/scripts majordomo/scripts.default && mkdir majordomo/scripts
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
