@@ -10,11 +10,11 @@ if [ -n "$MAJORDOMO_DONT_RESTORE_FILES" ]; then
   echo "$MAJORDOMO_DONT_RESTORE_FILES" | tr ',' '\n' >> /tmp/excludes
 fi
 
-# append default content from cms/modules/scripts/templates
-echo "Appending default content of cms/modules/scripts/templates directories."
-find /var/www/html/default_distribution/ -type d -exec /bin/sh -c "chmod 777 {} && chown www-data:www-data {}" \;
-find /var/www/html/default_distribution/ -type f -exec /bin/sh -c "chmod 666 {} && chown www-data:www-data {}" \;
-rsync -a --exclude-from=/tmp/excludes /var/www/html/default_distribution/ /var/www/html/
+# Copy content from /var/www/majordomo into /var/www/html
+echo "Updating installation directories with default majordomo files"
+find /var/www/majordomo/ -type d -exec /bin/sh -c "chmod 777 {} && chown www-data:www-data {}" \;
+find /var/www/majordomo/ -type f -exec /bin/sh -c "chmod 666 {} && chown www-data:www-data {}" \;
+rsync -a --exclude-from=/tmp/excludes /var/www/majordomo/ /var/www/html/
 
 # initialize db_terminal database if necessary
 php /var/www/html/db_terminal_init.php
