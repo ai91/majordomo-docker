@@ -1,8 +1,13 @@
 FROM php:7.4.25-apache
 
-RUN docker-php-ext-install mysqli && docker-php-ext-install sockets && docker-php-ext-enable mysqli && a2enmod rewrite
+RUN apt update && \
+    apt install -y iputils-ping rsync zlib1g-dev libpng-dev
 
-RUN apt update && apt install -y iputils-ping rsync
+RUN docker-php-ext-install mysqli && \
+    docker-php-ext-install sockets && \
+    docker-php-ext-install gd && \
+    docker-php-ext-enable mysqli && \
+    a2enmod rewrite
 
 COPY majordomo.sh /usr/local/bin/
 
