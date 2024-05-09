@@ -23,6 +23,16 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Check if startup script has been passed. If yes, execute it.
+if [ -n "$MAJORDOMO_STARTUP_SCRIPT" ]; then
+  if [ -f "$MAJORDOMO_STARTUP_SCRIPT" ]; then
+    if [ ! -x "$MAJORDOMO_STARTUP_SCRIPT" ]; then
+        chmod +x "$MAJORDOMO_STARTUP_SCRIPT"
+    fi
+    "$MAJORDOMO_STARTUP_SCRIPT"
+  fi
+fi
+
 # register and start majormodo service
 export -p > /root/env.sh
 service majordomo start
