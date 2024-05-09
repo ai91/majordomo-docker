@@ -4,6 +4,7 @@
 echo "" > /tmp/excludes
 if [ -n "$MAJORDOMO_DONT_RESTORE_FILES_FILE" ]; then
   cp $MAJORDOMO_DONT_RESTORE_FILES_FILE /tmp/excludes
+  echo "\n" >> /tmp/excludes
 fi
 if [ -n "$MAJORDOMO_DONT_RESTORE_FILES" ]; then
   echo "$MAJORDOMO_DONT_RESTORE_FILES" | tr ',' '\n' >> /tmp/excludes
