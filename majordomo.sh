@@ -6,8 +6,7 @@ if [ -n "$MAJORDOMO_DONT_RESTORE_FILES_FILE" ]; then
   cp $MAJORDOMO_DONT_RESTORE_FILES_FILE /tmp/excludes
 fi
 if [ -n "$MAJORDOMO_DONT_RESTORE_FILES" ]; then
-  excludes_content = $(echo "$MAJORDOMO_DONT_RESTORE_FILES" | tr ',' '\n')
-  echo "$excludes_content" >> /tmp/excludes
+  echo "$MAJORDOMO_DONT_RESTORE_FILES" | tr ',' '\n' >> /tmp/excludes
 fi
 
 # append default content from cms
