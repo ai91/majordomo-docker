@@ -11,9 +11,9 @@ fi
 
 # append default content from cms/modules/scripts
 echo "Appending default content of cms/modules/scripts directories."
+find /var/www/html/default_distribution/ -type d -exec /bin/sh -c "chmod 777 {} && chown www-data:www-data {}" \;
+find /var/www/html/default_distribution/ -type f -exec /bin/sh -c "chmod 666 {} && chown www-data:www-data {}" \;
 rsync -a --exclude-from=/tmp/excludes /var/www/html/default_distribution/ /var/www/html/
-find /var/www/html/cms/ -type d -exec /bin/sh -c "chmod 777 {} && chown www-data:www-data {}" \;
-find /var/www/html/cms/ -type f -exec /bin/sh -c "chmod 666 {} && chown www-data:www-data {}" \;
 
 # initialize db_terminal database if necessary
 php /var/www/html/db_terminal_init.php
