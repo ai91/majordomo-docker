@@ -1,4 +1,4 @@
-.git
-.gitignore
-.gitattributes
+majordomo/.git
+majordomo/.gitignore
+majordomo/.gitattributes
 .dockerignore
