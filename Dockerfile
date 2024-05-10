@@ -17,7 +17,7 @@ RUN chmod 0755 /etc/init.d/majordomo
 RUN mkdir /var/www/majordomo
 COPY majordomo /var/www/majordomo/
 
-COPY config-docker.php /var/www/html/config.php
-COPY db_terminal_init.php /var/www/html/db_terminal_init.php
+COPY config-docker.php /var/www/majordomo/config.php
+COPY db_terminal_init.php /var/www/majordomo/db_terminal_init.php
 
 CMD ["/bin/sh", "/usr/local/bin/majordomo.sh"]
