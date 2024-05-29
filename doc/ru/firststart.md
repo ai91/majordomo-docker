@@ -46,7 +46,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: db_terminal
       MYSQL_USER: user
-      MYSQL_PASSWORD_FILE: userpassword
+      MYSQL_PASSWORD: userpassword
       MARIADB_AUTO_UPGRADE: "1"
       MARIADB_INITDB_SKIP_TZINFO: "1"
 
