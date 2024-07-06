@@ -22,13 +22,20 @@ if (!function_exists('getenv_docker')) {
 if (!function_exists('define_docker')) {
 	function define_docker($env, $default) {
 		$val = getenv_docker('MAJORDOMO_'.$env, $default);
-		if (!is_null($val)) {
+		if (!is_null($val) && !defined($env)) {
 			define($env, $val);
 		}
 	}
 }
 
 date_default_timezone_set('UTC');
+
+foreach ($_ENV as $key => $value) {
+    if (strpos($key, 'MAJORDOMO_') === 0) {
+        $customEnvVar = substr($key, strlen('MAJORDOMO_'));
+        define_docker($customEnvVar, null);
+    }
+}
 
 define_docker('DB_HOST', 'localhost');
 define_docker('DB_NAME', 'db_terminal');
@@ -40,7 +47,7 @@ define_docker('DEBUG_MODE', 1);
 define_docker('UPDATES_REPOSITORY_NAME', 'smarthome');
 define_docker('PROJECT_TITLE', 'MajordomoSL');
 define_docker('PROJECT_BUGTRACK', "bugtrack@smartliving.ru");
-define_docker('DOC_ROOT', dirname(__FILE__));              // Your htdocs location (should be detected automatically)
+define_docker('DOC_ROOT', dirname(__FILE__));
 define_docker('SERVER_ROOT', '/var/www/html');
 define_docker('PATH_TO_PHP', 'php');
 define_docker('PATH_TO_MYSQLDUMP', "mysqldump");
@@ -54,38 +61,4 @@ define_docker('GETURL_WARNING_TIMEOUT',5);
 
 $restart_threads = explode(',', getenv_docker('MAJORDOMO_RESTART_THREADS', 'cycle_execs.php,cycle_main.php,cycle_ping.php,cycle_scheduler.php,cycle_states.php,cycle_webvars.php'));
 $aditional_git_urls = explode(',', getenv_docker('MAJORDOMO_ADITIONAL_GIT_URLS', ''));
-
-define_docker('WEBSOCKETS_PORT', null);
-define_docker('USE_PROXY', null);
-define_docker('USE_PROXY_AUTH', null);
-define_docker('HISTORY_NO_OPTIMIZE', null);
-define_docker('ONEWIRE_SERVER', null);
-define_docker('HOME_NETWORK', null);
-define_docker('EXT_ACCESS_USERNAME', null);
-define_docker('EXT_ACCESS_PASSWORD', null);
-define_docker('DROPBOX_SHOPPING_LIST', null);
-define_docker('WAIT_FOR_MAIN_CYCLE', null);
-define_docker('TRACK_DATA_CHANGES', null);
-define_docker('TRACK_DATA_CHANGES_IGNORE', null);
-define_docker('SEPARATE_HISTORY_STORAGE',null);
-define_docker('LOG_DIRECTORY', null);
-define_docker('LOG_MAX_SIZE', null);
-define_docker('LOG_CYCLES', null);
-define_docker('PATH_TO_FFMPEG', null);
-define_docker('ENABLE_PANEL_ACCELERATION', null);
-define_docker('VERBOSE_LOG', null);
-define_docker('VERBOSE_LOG_IGNORE', null);
-define_docker('DISABLE_SIMPLE_DEVICES', null);
-define_docker('AUDIO_PLAYER', null);
-define_docker('ENABLE_FORK', null);
-define_docker('PYTHON_PATH', null);
-define_docker('LOCAL_IP', null);
-define_docker('BTRACED', null);
-define_docker('LOWER_BACKGROUND_PROCESSES', null);
-define_docker('USE_REDIS', null);
-define_docker('LOG_FILES_EXPIRE', null);
-define_docker('BACKUP_FILES_EXPIRE', null);
-define_docker('CACHED_FILES_EXPIRE', null);
-define_docker('SETTINGS_ERRORS_KEEP_HISTORY', null);
-define_docker('SETTINGS_BACKUP_PATH', null);
 

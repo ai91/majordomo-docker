@@ -1,16 +1,18 @@
 # Быстрая установка с нуля
-Системные требования
+## Системные требования
  - ОС с установленным docker compose. 
 
-Примеры командной строки для linux системы:
+## Установка
+> Примеры командной строки для linux системы.
 
- 0. Устанавливаем docker compose. Для различных ОС процесс установки слегка отличается - см. [соответсвующую документацию](https://docs.docker.com/compose/install/linux/).
- 1. Создаем рабочую директорию:
+### 0. Устанавливаем docker compose. 
+ Для различных ОС процесс установки слегка отличается - см. [соответсвующую документацию](https://docs.docker.com/compose/install/linux/).
+### 1. Создаем рабочую директорию
 ```sh
 mkdir -p /var/docker/majordomo
 ```
 
- 2. Создаем `/var/docker/majordomo/docker-compose.yml`:
+### 2. Создаем `docker-compose.yml`:
 ```sh
 nano /var/docker/majordomo/docker-compose.yml
 ```
@@ -57,7 +59,7 @@ volumes:
 Данный файл представляет собой минимальную конфигурацию, состоящую из двух контейнеров: MajorDoMo и базу данных.
 Это всё что надо для того чтобы запустить умный дом.
 
- 3. Запускаем:
+### 3. Запускаем
 ```sh
 cd /var/docker/majordomo
 sudo docker compose up -d
@@ -67,15 +69,22 @@ sudo docker compose up -d
 # Делаем безопасно
 Пример выше - далёк от рекомендуемых практик. Не рекомендуется указывать пароли в явном виде. Слегка адаптируем нашу конфигурацию для использования т.н. "секретов":
 
- 1. Создаем два "секрета" - пароли для рута и для пользователя:
+### 1. Создаём "секреты"
+ Создаем два секрета - пароли для рута и для пользователя:
 ```sh
 sudo mkdir /root/secrets
 sudo echo "rootpassword" > /root/secrets/majordomo_db_root_pw;history -d $(history 1) 
 sudo echo "userpassword" > /root/secrets/majordomo_db_pw;history -d $(history 1) 
 ```
-(в конце команд добавлены `;history -d $(history 1)` чтобы пароли не светились в истории - тоже часть концепции безопасности. Как вариант - использовать редактор.)
- 
- 2. Добавляем секреты в наш `docker-compose.yml`:
+> в конце команд добавлены `;history -d $(history 1)` чтобы пароли не светились в истории - тоже часть концепции безопасности. 
+> Другой вариант - использовать редактор.
+>```sh
+>sudo nano /root/secrets/majordomo_db_root_pw
+>sudo nano /root/secrets/majordomo_db_pw
+>```
+
+### 2. Добавляем секреты в наш `docker-compose.yml`
+Добавляем секреты в корень конфигурации
 ```yml
 ...
 secrets:
@@ -84,7 +93,7 @@ secrets:
   majordomo_db_root_pw:
     file: /root/secrets/majordomo_db_root_pw
 ```
-и используем их в параметрах контейнеров:
+После чего используем их в параметрах контейнеров:
 ```yml
 ...
 services:
@@ -158,9 +167,10 @@ volumes:
 
 ```
 
-Всё, теперь можно перестартовать
+### 3. Перестартовываем
 ```sh
 cd /var/docker/majordomo
 sudo docker compose up --force-recreate -d
 ```
-и начинать настраивать или переходить в [Расширеные примеры](advanced.md).
+
+Теперь можно начинать настраивать или переходить в [Расширеные примеры](advanced.md).
