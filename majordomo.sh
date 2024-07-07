@@ -2,12 +2,14 @@
 
 # prepare list of files to be ignored during restoring content
 echo "" > /tmp/excludes
-if [ -n "$MAJORDOMO_DONT_RESTORE_FILES_FILE" ]; then
-  cp $MAJORDOMO_DONT_RESTORE_FILES_FILE /tmp/excludes
-  echo "\n" >> /tmp/excludes
-fi
-if [ -n "$MAJORDOMO_DONT_RESTORE_FILES" ]; then
-  echo "$MAJORDOMO_DONT_RESTORE_FILES" | tr ',' '\n' >> /tmp/excludes
+if [ "$(ls -A /var/www/html/)" ]; then
+  if [ -n "$MAJORDOMO_DONT_RESTORE_FILES_FILE" ]; then
+    cp $MAJORDOMO_DONT_RESTORE_FILES_FILE /tmp/excludes
+    echo "\n" >> /tmp/excludes
+  fi
+  if [ -n "$MAJORDOMO_DONT_RESTORE_FILES" ]; then
+    echo "$MAJORDOMO_DONT_RESTORE_FILES" | tr ',' '\n' >> /tmp/excludes
+  fi
 fi
 
 # Copy content from /var/www/majordomo into /var/www/html
