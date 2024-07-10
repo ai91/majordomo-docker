@@ -1,8 +1,10 @@
 #!/bin/sh
 
 # prepare list of files to be ignored during restoring content
+# Note: when existing installation is "broken", then ignore DONT_RESTORE_FILES
+#       and restore everything. As a "broken"-indicator - we check absence of cycle.php
 echo "" > /tmp/excludes
-if [ "$(ls -A /var/www/html/)" ]; then
+if [ -f "/var/www/html/cycle.php" ]; then
   if [ -n "$MAJORDOMO_DONT_RESTORE_FILES_FILE" ]; then
     cp $MAJORDOMO_DONT_RESTORE_FILES_FILE /tmp/excludes
     echo "\n" >> /tmp/excludes
