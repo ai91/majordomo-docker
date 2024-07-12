@@ -18,7 +18,7 @@ fi
 echo "Updating installation directories with default majordomo files"
 find /var/www/majordomo/ -type d -exec /bin/sh -c "chmod 777 {} && chown www-data:www-data {}" \;
 find /var/www/majordomo/ -type f -exec /bin/sh -c "chmod 666 {} && chown www-data:www-data {}" \;
-rsync -a --exclude-from=/tmp/excludes /var/www/majordomo/ /var/www/html/
+rsync -a --include="config.php,db_terminal_init.php" --exclude-from=/tmp/excludes /var/www/majordomo/ /var/www/html/
 
 # initialize db_terminal database if necessary
 php /var/www/html/db_terminal_init.php
