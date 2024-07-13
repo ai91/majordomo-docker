@@ -24,7 +24,7 @@ while ($retryCount < $maxRetries) {
 		echo "Connected successfully." . PHP_EOL;
 		if(!$mysqli->query("DESCRIBE classes")) {
 			$sql = file_get_contents('db_terminal.sql');
-			if ($mysqli->multi_query($sql)) {
+			if ($mysqli->multi_query(preg_split('/;[\n\r]/', $sql)) {
 				do {
 					if ($result = $mysqli->store_result()) {
 						$result->free();
