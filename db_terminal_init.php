@@ -23,18 +23,23 @@ while ($retryCount < $maxRetries) {
 	} else {
 		echo "Connected successfully." . PHP_EOL;
 		if(!$mysqli->query("DESCRIBE classes")) {
-			$sql = file_get_contents('db_terminal.sql');
-			if ($mysqli->multi_query(preg_split('/;[\n\r]/', $sql))) {
-				do {
-					if ($result = $mysqli->store_result()) {
-						$result->free();
-					}
-				} while ($mysqli->more_results() && $mysqli->next_result());
+			$db_dump = file_get_contents('db_terminal.sql');
+			$sqlsArray = preg_split('/;[\n\r]/', $db_dump);
+			foreach($sqlsArray as $sql) {
+				if ($mysqli->multi_query(preg_split('/;[\n\r]/', $sql))) {
+					do {
+						if ($result = $mysqli->store_result()) {
+							$result->free();
+						}
+					} while ($mysqli->more_results() && $mysqli->next_result());
+				}
+				if ($mysqli->errno) {
+					echo "Initialization failed." . PHP_EOL;
+					var_dump($mysqli->error);
+					break;
+				}
 			}
-			if ($mysqli->errno) {
-				echo "Initialization failed." . PHP_EOL;
-				var_dump($mysqli->error);
-			} else {
+			if (!$mysqli->errno) {
 				echo "Initializing database done" . PHP_EOL;
 			}
 		} else {
