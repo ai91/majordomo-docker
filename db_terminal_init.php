@@ -26,7 +26,7 @@ while ($retryCount < $maxRetries) {
 			$db_dump = file_get_contents('db_terminal.sql');
 			$sqlsArray = preg_split('/;[\n\r]/', $db_dump);
 			foreach($sqlsArray as $sql) {
-				if ($mysqli->multi_query(preg_split('/;[\n\r]/', $sql))) {
+				if ($mysqli->multi_query($sql)) {
 					do {
 						if ($result = $mysqli->store_result()) {
 							$result->free();
