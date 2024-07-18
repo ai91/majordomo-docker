@@ -1,22 +1,5 @@
 #!/bin/sh
 
-TODO on first start also restore base installation* (ignoring existing files)
-3rdparty
-css
-objects
-pChart
-rc
-templates_alt
-.htaccess
-config.php.sample
-favicon.ico
-index.php
-install-linux.sh
-LICENSE
-obj.bat
-README.md
-robots.txt
-
 # prepare list of files to be ignored during restoring content
 # Note: when existing installation is "broken", then ignore DONT_RESTORE_FILES
 #       and restore everything. As a "broken"-indicator - we check absence of cycle.php
