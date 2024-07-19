@@ -22,6 +22,7 @@ jobs:
     - name: Set enviroment
       shell: bash
       run: |
+        echo "master_hash=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)" | tr '/a-z/' '/A-Z/'
         echo "master_hash=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)" | tr '/a-z/' '/A-Z/' >> "$GITHUB_ENV"
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
