@@ -22,8 +22,7 @@ jobs:
     - name: Set enviroment
       shell: bash
       run: |
-        echo "master_hash=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)" | tr '/a-z/' '/A-Z/'
-        echo "master_hash=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)" | tr '/a-z/' '/A-Z/' >> "$GITHUB_ENV"
+        echo "MASTER_HASH=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)" | tr '/a-z/' '/A-Z/' >> "$GITHUB_ENV"
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
@@ -40,4 +39,4 @@ jobs:
         platforms: linux/386
         #platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         push: true
-        tags: ai91/majordomo-docker:${{env.master_hash}}, ai91/majordomo-docker:latest
+        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}, ai91/majordomo-docker:latest
