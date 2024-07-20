@@ -1,5 +1,7 @@
 name: Docker Image CI
 
+on: workflow_dispatch
+
 jobs:
 
   build_alpha_7.4:
