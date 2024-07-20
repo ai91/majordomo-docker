@@ -80,6 +80,7 @@ sudo echo "userpassword" > /root/secrets/majordomo_db_pw;history -d $(history 1)
 >sudo nano /root/secrets/majordomo_db_root_pw
 >sudo nano /root/secrets/majordomo_db_pw
 >```
+> Файлы должны содержать только пароль, без переноса строки в конце!
 
 ### 2. Добавляем секреты в наш `docker-compose.yml`
 Добавляем секреты в корень конфигурации

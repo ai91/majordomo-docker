@@ -1,28 +1,26 @@
 name: Docker Image CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
 jobs:
 
-  build:
+  build_alpha_7.4:
 
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set enviroment variables
+      shell: bash
+      run: |
+        phpVersion=7.4.25
+        echo "phpTag=${phpVersion}-apache" >> "$GITHUB_ENV"
+        echo "ALPHA_HASH=alpha_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/alpha | cut -c 1-7)_php${phpVersion}" | tr '/a-z/' '/A-Z/' >> "$GITHUB_ENV"
     - uses: actions/checkout@v4
+    - name: Generate Dockerfile
+      run: ./generate-docker.sh
     - uses: actions/checkout@v4
       with:
         repository: sergejey/majordomo
-        ref: master
+        ref: alpha
         path: majordomo
-    - name: Set enviroment
-      shell: bash
-      run: |
-        echo "MASTER_HASH=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)_php7.4.25" | tr '/a-z/' '/A-Z/' >> "$GITHUB_ENV"
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
@@ -39,4 +37,4 @@ jobs:
         #platforms: linux/386
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         push: true
-        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}, ai91/majordomo-docker:latest
+        tags: ai91/majordomo-docker:${{env.ALPHA_HASH}}, ai91/majordomo-docker:alpha_latest
