@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
 
-  build_alpha_7.4:
+  build:
 
     runs-on: ubuntu-latest
 
