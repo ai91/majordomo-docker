@@ -225,6 +225,16 @@ services:
       MAJORDOMO_DONT_RESTORE_FILES: "*"
 ...
 ```
+либо запретить обновлять существующие файлы:
+```yml
+...
+services:
+  majordomo:
+...
+    environment:
+      MAJORDOMO_SOFT_RESTORE: true
+...
+```
 При таком подходе докер-контейнер будет использоваться только как стабильная среда с php и apache. При этом периодические обновления тега также имеют смысл - будет обновлятся ОС, php, apache, пакеты.
 #### Плюсы
 - Вся мощь панели управления без ограничений.
@@ -238,8 +248,6 @@ services:
 
 Пример конфигурации с запуском MQTT брокера: 
 ```yml
-version: '3.3'
-
 services:
   majordomo:
     image: ai91/majordomo-docker:latest

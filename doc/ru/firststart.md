@@ -18,8 +18,6 @@ nano /var/docker/majordomo/docker-compose.yml
 ```
 со следующим содержимым:
 ```yml
-version: '3.3'
-
 services:
   majordomo:
     image: ai91/majordomo-docker:latest
@@ -119,8 +117,6 @@ services:
 
 Результирующий файл:
 ```yml
-version: '3.3'
-
 services:
   majordomo:
     image: ai91/majordomo-docker:latest
