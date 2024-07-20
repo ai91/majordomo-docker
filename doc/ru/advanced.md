@@ -32,7 +32,6 @@ Define('DB_PASSWORD', 'rootpassword');
 
 #### Пример с секретом:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -53,7 +52,6 @@ Define ('DB_PASSWORD', 'содержимое файла');
 
 #### Пример с переменной во внешнем файле:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -106,7 +104,6 @@ Define ('GIT_URL', 'содержимое файла');
 
 Пример `docker-compose.yml`:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -118,7 +115,6 @@ services:
 
 Аналогичным образом решается проблема обновлений средствами самого MajorDoMo: чтобы позволить обновления через панель управления - достаточно в MAJORDOMO_DONT_RESTORE_FILES указать все файлы:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -134,7 +130,6 @@ services:
 ### MAJORDOMO_SOFT_RESTORE
 В случае если надо только добавить файлы из базового образа которые отсутсвуют в рабочей директории, можно использовать переменную окружения `MAJORDOMO_SOFT_RESTORE`. Значение может быть любым. Если переменная установлена, то будут копироваться файлы без перезаписи существующих. 
 ```yml
-...
 services:
   majordomo:
 ...
@@ -167,7 +162,6 @@ services:
 # Пользовательский стартовый скрипт
 Если есть необходимость запускать пользовательский shell скрипт при старте контейнера, то можно замаунтить из хост машины произвольный скрипт и указать путь к нему с помощью переменной окружения `MAJORDOMO_STARTUP_SCRIPT`:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -217,7 +211,6 @@ sudo docker compose up --force-recreate -d
 ### Обновление средствами MajorDoMo
 Чтобы полноценно воспользоваться обновлениями через панель управления, надо запретить восстановление рабочей директории:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -227,7 +220,6 @@ services:
 ```
 либо запретить обновлять существующие файлы:
 ```yml
-...
 services:
   majordomo:
 ...
@@ -334,3 +326,23 @@ sudo docker exec majordomo_mqtt mosquitto_passwd -U /etc/mosquitto/passwd
 После вызова данной утилиты, пароль внутри файла `/etc/mosquitto/passwd` (он же `/var/docker/majordomo/mosquitto/passwd` на хост-машине) станет зашифрованым.
 
 Теперь можно установить и настроить модуль MQTT в MajorDoMo. Для этого открываем панель управления, устанавливаем модуль и настраиваем его для работы с брокером: он доступен на этой же машине по порту `1883`.
+
+# phpMyAdmin
+Аналогичным образом ставится phpMyAdmin.
+```yml
+services:
+...
+  majordomo_db:
+...
+  majordomo_phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - majordomo_db
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: majordomo_db
+
+```
+В примере выше для доступа к phpMyAdmin надо открывать порт 8080: http://localhost:8080
