@@ -10,5 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: ./.github/workflows/build_alpha_7.4.yml
-    - uses: ./.github/workflows/build_alpha_8.3.yml
+    - uses: ai91/majordomo-docker/.github/workflows/build_alpha_7.4.yml@main
+      secrets: inherit
+    - uses: ai91/majordomo-docker/.github/workflows/build_alpha_8.3.yml@main
+      secrets: inherit
