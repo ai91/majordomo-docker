@@ -186,7 +186,7 @@ services:
 ```yml
 services:
   majordomo:
-    image: ai91/majordomo-docker:MASTER_E2B3099_PHP7.4.25
+    image: ai91/majordomo-docker:master_E2B3099_php7.4.25
 ```
 
 Либо использовать `:latest` - он всегда будет иметь последнюю доступную версию:

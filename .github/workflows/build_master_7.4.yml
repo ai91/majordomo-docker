@@ -45,4 +45,4 @@ jobs:
         #platforms: linux/386
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         push: true
-        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}, ai91/majordomo-docker:latest_php7
+        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}, ai91/majordomo-docker:latest_php7, ai91/majordomo-docker:latest
