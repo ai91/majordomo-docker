@@ -1,6 +1,6 @@
 name: Build master with php 7.4
 
-on: workflow_dispatch
+on: workflow_call
   
 #  push:
 #    branches: [ "main" ]
@@ -19,7 +19,7 @@ jobs:
       run: |
         phpVersion=7.4.25
         echo "phpTag=${phpVersion}-apache" >> "$GITHUB_ENV"
-        echo "MASTER_HASH=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7)_php${phpVersion}" | tr '/a-z/' '/A-Z/' >> "$GITHUB_ENV"
+        echo "MASTER_HASH=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7 | tr '/a-z/' '/A-Z/')_php${phpVersion}" >> "$GITHUB_ENV"
     - uses: actions/checkout@v4
     - name: Generate Dockerfile
       run: ./generate-docker.sh
@@ -44,4 +44,4 @@ jobs:
         #platforms: linux/386
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         push: true
-        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}
+        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}, ai91/majordomo-docker:latest_php7

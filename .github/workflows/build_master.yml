@@ -1,0 +1,14 @@
+name: Build master
+
+on: workflow_dispatch
+
+jobs:
+
+  build-php7:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/workflows/build_master_7.4.yml
+    - uses: ./.github/workflows/build_master_8.3.yml
