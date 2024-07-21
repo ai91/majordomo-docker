@@ -83,7 +83,7 @@ sudo echo "userpassword" > /root/secrets/majordomo_db_pw;history -d $(history 1)
 > Файлы должны содержать только пароль, без переноса строки в конце!
 
 ### 2. Добавляем секреты в наш `docker-compose.yml`
-Добавляем секреты в корень конфигурации
+Добавляем секреты в корень конфигурации:
 ```yml
 ...
 secrets:
@@ -170,4 +170,4 @@ cd /var/docker/majordomo
 sudo docker compose up --force-recreate -d
 ```
 
-Теперь можно настраивать или переходить в [Расширеные примеры](advanced.md).
+Теперь можно настраивать или переходить в [расширеные примеры](advanced.md).
