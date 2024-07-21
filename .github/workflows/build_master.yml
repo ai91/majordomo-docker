@@ -5,12 +5,9 @@ on: workflow_dispatch
 jobs:
 
   build-php7:
+    uses: ai91/majordomo-docker/.github/workflows/build_master_7.4.yml@main
+    secrets: inherit
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: ai91/majordomo-docker/.github/workflows/build_master_7.4.yml@main
-      secrets: inherit
-    - uses: ai91/majordomo-docker/.github/workflows/build_master_8.3.yml@main
-      secrets: inherit
+  build-php8:
+    uses: ai91/majordomo-docker/.github/workflows/build_master_8.3.yml@main
+    secrets: inherit
