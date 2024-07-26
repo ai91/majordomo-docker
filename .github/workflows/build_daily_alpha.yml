@@ -1,0 +1,25 @@
+name: Build alpha
+
+on:
+  schedule:
+#    - cron: '0 3 * * *'
+    - cron: '*/5 * * * *'
+
+jobs:
+
+  check-image-existence:
+    name: Check existence of docker tag
+    runs-on: ubuntu-latest
+    outputs:
+      run_rest_jobs: ${{ steps.set_output.outputs.run_jobs }}
+    steps:
+      - name: Set enviroment variables
+        shell: bash
+        run: |
+          phpVersion=7.4.25
+          echo "ALPHA_HASH=alpha_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/alpha | cut -c 1-7 | tr '/a-z/' '/A-Z/')_php${phpVersion}" >> "$GITHUB_ENV"
+      - name: Check
+        shell: bash
+        run: |
+          docker manifest inspect ai91/majordomo-docker:${{env.ALPHA_HASH}} > /dev/null 2>&1 echo tag ai91/majordomo-docker:${{env.ALPHA_HASH}} exists || echo no ai91/majordomo-docker:${{env.ALPHA_HASH}} found
+
