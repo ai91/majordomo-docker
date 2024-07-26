@@ -2,8 +2,8 @@ name: Build daily alpha
 
 on:
   schedule:
-#    - cron: '0 3 * * *'
     - cron: '*/5 * * * *'
+#    - cron: '0 3 * * *'
 
 jobs:
 
