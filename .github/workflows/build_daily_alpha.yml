@@ -1,4 +1,4 @@
-name: Build alpha
+name: Build daily alpha
 
 on:
   schedule:
