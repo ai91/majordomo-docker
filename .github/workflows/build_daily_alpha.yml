@@ -21,5 +21,6 @@ jobs:
       - name: Check
         shell: bash
         run: |
-          docker manifest inspect ai91/majordomo-docker:${{env.ALPHA_HASH}} > /dev/null 2>&1 echo tag ai91/majordomo-docker:${{env.ALPHA_HASH}} exists || echo no ai91/majordomo-docker:${{env.ALPHA_HASH}} found
+          docker manifest inspect ai91/majordomo-docker:${{env.ALPHA_HASH}}
+          docker manifest inspect ai91/majordomo-docker:${{env.ALPHA_HASH}} > /dev/null 2>&1 && echo tag ai91/majordomo-docker:${{env.ALPHA_HASH}} exists || echo no ai91/majordomo-docker:${{env.ALPHA_HASH}} found
 
