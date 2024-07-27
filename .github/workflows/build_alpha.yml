@@ -1,13 +1,26 @@
 name: Build alpha
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
 
+  configure-params:
+    uses: ai91/majordomo-docker/.github/workflows/build_configure_params.yml@main
+
   build-php7:
-    uses: ai91/majordomo-docker/.github/workflows/build_alpha_7.4.yml@main
+    needs: [configure-params]
+    uses: ai91/majordomo-docker/.github/workflows/build_alpha_7.yml@main
+    with:
+      php7_version: ${{ needs.configure-params.outputs.php7_version }}
+      alpha_php7_tag: ${{ needs.configure-params.outputs.alpha_php7_tag }}
     secrets: inherit
 
   build-php8:
-    uses: ai91/majordomo-docker/.github/workflows/build_alpha_8.3.yml@main
+    needs: [configure-params]
+    uses: ai91/majordomo-docker/.github/workflows/build_alpha_8.yml@main
+    with:
+      php8_version: ${{ needs.configure-params.outputs.php8_version }}
+      alpha_php8_tag: ${{ needs.configure-params.outputs.alpha_php8_tag }}
     secrets: inherit

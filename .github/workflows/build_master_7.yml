@@ -1,12 +1,14 @@
-name: Build master with php 7.4
+name: Build master with php 7
 
 on:
   workflow_call:
-    secrets:
-      DOCKER_USERNAME:
+    inputs:
+      php7_version:
         required: true
-      DOCKER_PASSWORD:
+        type: string
+      master_php7_tag:
         required: true
+        type: string
 
 jobs:
 
@@ -15,13 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v4
     - name: Set enviroment variables
       shell: bash
-      run: |
-        phpVersion=7.4.25
-        echo "phpTag=${phpVersion}-apache" >> "$GITHUB_ENV"
-        echo "MASTER_HASH=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7 | tr '/a-z/' '/A-Z/')_php${phpVersion}" >> "$GITHUB_ENV"
-    - uses: actions/checkout@v4
+      run: echo "phpTag=${{ inputs.php7_version }}-apache" >> "$GITHUB_ENV"
     - name: Generate Dockerfile
       run: ./generate-docker.sh
     - uses: actions/checkout@v4
@@ -42,7 +41,6 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        #platforms: linux/386
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         push: true
-        tags: ai91/majordomo-docker:${{env.MASTER_HASH}}, ai91/majordomo-docker:latest_php7, ai91/majordomo-docker:latest
+        tags: ai91/majordomo-docker:${{ inputs.master_php7_tag }}, ai91/majordomo-docker:latest_php7, ai91/majordomo-docker:latest

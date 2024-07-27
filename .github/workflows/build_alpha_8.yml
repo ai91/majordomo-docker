@@ -1,12 +1,14 @@
-name: Build alpha with php 8.3
+name: Build alpha with php 8
 
 on:
   workflow_call:
-    secrets:
-      DOCKER_USERNAME:
+    inputs:
+      php8_version:
         required: true
-      DOCKER_PASSWORD:
+        type: string
+      alpha_php8_tag:
         required: true
+        type: string
 
 jobs:
 
@@ -15,13 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v4
     - name: Set enviroment variables
       shell: bash
-      run: |
-        phpVersion=8.3.9
-        echo "phpTag=${phpVersion}-apache" >> "$GITHUB_ENV"
-        echo "ALPHA_HASH=alpha_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/alpha | cut -c 1-7 | tr '/a-z/' '/A-Z/')_php${phpVersion}" >> "$GITHUB_ENV"
-    - uses: actions/checkout@v4
+      run: echo "phpTag=${{ inputs.php8_version }}-apache" >> "$GITHUB_ENV"
     - name: Generate Dockerfile
       run: ./generate-docker.sh
     - uses: actions/checkout@v4
@@ -42,7 +41,6 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        #platforms: linux/386
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         push: true
-        tags: ai91/majordomo-docker:${{env.ALPHA_HASH}}, ai91/majordomo-docker:alpha_php8
+        tags: ai91/majordomo-docker:${{ inputs.alpha_php8_tag }}, ai91/majordomo-docker:alpha_php8
