@@ -25,7 +25,7 @@ jobs:
   trigger-build:
     name: Trigger build
     needs: [configure-params, check-image-existence]
-    if: needs.check-image-existence.outputs.trigger_build == 'true'
+    if: needs.check-image-existence.outputs.run_trigger_build == 'true'
     uses: ai91/majordomo-docker/.github/workflows/build_alpha.yml@main
     secrets: inherit
 
