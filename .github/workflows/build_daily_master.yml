@@ -2,8 +2,7 @@ name: Build daily master
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
-#    - cron: '0 3 * * *'
+    - cron: '0 4 * * *'
 
 jobs:
 
