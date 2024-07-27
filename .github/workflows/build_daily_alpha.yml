@@ -2,7 +2,7 @@ name: Build daily alpha
 
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 * * * *'
 
 jobs:
 
@@ -19,7 +19,8 @@ jobs:
       - name: Check
         shell: bash
         run: |
-          docker manifest inspect ai91/majordomo-docker:${{ needs.configure-params.outputs.alpha_php7_tag }} > /dev/null 2>&1 && echo "::set-output name=run_jobs::false" || echo "::set-output name=run_jobs::true"
+          echo "alpha_php7_tag = ${{ needs.configure-params.outputs.alpha_php7_tag }}"
+          docker manifest inspect ai91/majordomo-docker:${{ needs.configure-params.outputs.alpha_php7_tag }} > /dev/null 2>&1 && echo ("run_jobs=false" || echo "run_jobs=true") >> "$GITHUB_OUTPUT"
 
   trigger-build:
     name: Trigger build
