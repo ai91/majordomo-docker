@@ -2,7 +2,7 @@ name: Build daily master
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 2 * * *'
 
 jobs:
 
@@ -24,7 +24,7 @@ jobs:
           docker manifest inspect ai91/majordomo-docker:${{ needs.configure-params.outputs.master_php7_tag }} > /dev/null 2>&1 && (echo "trigger_build=false"  >> "$GITHUB_OUTPUT") || (echo "trigger_build=true" >> "$GITHUB_OUTPUT")
 
   trigger-build:
-    name: Trigger build
+    name: Trigger build master
     needs: [configure-params, check-image-existence]
     if: "${{ needs.check-image-existence.outputs.run_trigger_build == 'true' }}"
     uses: ai91/majordomo-docker/.github/workflows/build_master.yml@main

@@ -10,6 +10,7 @@ jobs:
     uses: ai91/majordomo-docker/.github/workflows/build_configure_params.yml@main
 
   build-php7:
+    name: Trigger build alpha php7
     needs: [configure-params]
     uses: ai91/majordomo-docker/.github/workflows/build_alpha_7.yml@main
     with:
@@ -18,6 +19,7 @@ jobs:
     secrets: inherit
 
   build-php8:
+    name: Trigger build alpha php8
     needs: [configure-params]
     uses: ai91/majordomo-docker/.github/workflows/build_alpha_8.yml@main
     with:
