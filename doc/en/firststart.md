@@ -1,22 +1,22 @@
-# Быстрая установка с нуля
-## Системные требования
- - ОС с установленным docker compose. 
+# Quick installation from scratch
+## System Requirements
+ - OS with docker compose installed. 
 
-## Установка
-> Примеры командной строки для linux системы.
+## Installation
+> Command line examples for Linux systems.
 
-### 0. Устанавливаем docker compose. 
- Для различных ОС процесс установки слегка отличается - см. [соответсвующую документацию](https://docs.docker.com/compose/install/linux/).
-### 1. Создаем рабочую директорию
+### 0. Install docker compose. 
+ The installation process is slightly different for different operating systems - see the [appropriate documentation](https://docs.docker.com/compose/install/linux/).
+### 1. Create a working directory
 ```sh
 mkdir -p /var/docker/majordomo
 ```
 
-### 2. Создаем `docker-compose.yml`:
+### 2. Create `docker-compose.yml`:
 ```sh
 nano /var/docker/majordomo/docker-compose.yml
 ```
-со следующим содержимым:
+with the following content:
 ```yml
 services:
   majordomo:
@@ -53,36 +53,36 @@ services:
 volumes:
   database: {}
 ```
-Данный файл представляет собой минимальную конфигурацию, состоящую из двух контейнеров: MajorDoMo и базу данных.
-Это всё что надо для того чтобы запустить умный дом.
+This file is a minimal configuration, consisting of two containers: MajorDoMo and the database.
+This is all you need to start your smart home.
 
-### 3. Запускаем
+### 3. Run
 ```sh
 cd /var/docker/majordomo
 sudo docker compose up -d
 ```
-После того как последняя команда отрапортовала об успешном запуске, необходимо подождать пару минут, т.к. "прогрев" контейнера занимает некоторое время (при старте контейнер некоторое время занят созданием/восстановлением структуры каталогов, инициализацией базы данных). Через пару минут можно открывать сайт в браузере: http://localhost .
+After the last command reports a successful start, you should wait a few minutes because the container needs some time to "warm up" (at startup, the container takes some time to create/restore the directory structure and initialize the database). After a few minutes you can open the site in your browser: http://localhost .
 
-# Делаем безопасно
-Не рекомендуется указывать пароли в явном виде, как это сделано в примере выше. Изменим конфигурацию для использования т.н. "секретов":
+# Make it safe
+It is not recommended to specify passwords explicitly, as in the example above. Let's change the configuration to use "secrets":
 
-### 1. Создаём "секреты"
- Создаем два секрета - пароли для рута и для пользователя:
+### 1. Create "secrets
+ Create two secrets - root and user passwords:
 ```sh
 sudo mkdir /root/secrets
 sudo echo "rootpassword" > /root/secrets/majordomo_db_root_pw;history -d $(history 1) 
 sudo echo "userpassword" > /root/secrets/majordomo_db_pw;history -d $(history 1) 
 ```
-> в конце команд добавлены `;history -d $(history 1)` чтобы пароли не светились в истории - тоже часть концепции безопасности. 
-> Другой вариант - использовать редактор.
+> `;history -d $(history 1)` is added at the end of the commands to prevent passwords from appearing in the history, also part of the security concept. 
+> Another way is to use the editor.
 >```sh
 >sudo nano /root/secrets/majordomo_db_root_pw
 >sudo nano /root/secrets/majordomo_db_pw
 >```
-> Файлы должны содержать только пароль, без переноса строки в конце!
+> Files must contain only the password, no line breaks at the end!
 
-### 2. Добавляем секреты в наш `docker-compose.yml`
-Добавляем секреты в корень конфигурации:
+### 2. Add the secrets to our `docker-compose.yml`.
+Add secrets to the root of the configuration file:
 ```yml
 ...
 secrets:
@@ -91,7 +91,7 @@ secrets:
   majordomo_db_root_pw:
     file: /root/secrets/majordomo_db_root_pw
 ```
-После чего используем их в параметрах контейнеров:
+Then we use it in the container parameters:
 ```yml
 ...
 services:
@@ -115,7 +115,7 @@ services:
 
 ```
 
-Результирующий файл:
+Resulting file:
 ```yml
 services:
   majordomo:
@@ -163,10 +163,10 @@ volumes:
 
 ```
 
-### 3. Перестартовываем
+### 3. Restart
 ```sh
 cd /var/docker/majordomo
 sudo docker compose up --force-recreate -d
 ```
 
-Теперь можно настраивать или переходить в [расширеные примеры](advanced.md).
+Now you can customize or go to [advanced examples](advanced.md).

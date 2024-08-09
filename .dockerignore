@@ -2,3 +2,4 @@ majordomo/.git
 majordomo/.gitignore
 majordomo/.gitattributes
 .dockerignore
+.project

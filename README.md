@@ -3,6 +3,6 @@ Docker image for [MajorDoMo](https://github.com/sergejey/majordomo) smarthome au
 
 # Documentation
 
-English *under construction*
+[English](doc/en)
 
 [Русский](doc/ru)
