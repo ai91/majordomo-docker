@@ -56,7 +56,7 @@ volumes:
 This file is a minimal configuration, consisting of two containers: MajorDoMo and the database.
 This is all you need to start your smart home.
 
-### 3. Run
+### 3. Start
 ```sh
 cd /var/docker/majordomo
 sudo docker compose up -d
@@ -66,7 +66,7 @@ After the last command reports a successful start, you should wait a few minutes
 # Make it safe
 It is not recommended to specify passwords explicitly, as in the example above. Let's change the configuration to use "secrets":
 
-### 1. Create "secrets
+### 1. Create secrets
  Create two secrets - root and user passwords:
 ```sh
 sudo mkdir /root/secrets
