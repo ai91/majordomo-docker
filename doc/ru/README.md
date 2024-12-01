@@ -21,14 +21,14 @@
 
 Список имеющихся тегов можно посмотреть на [докер-хабе](https://hub.docker.com/r/ai91/majordomo-docker/tags).
 - Стабильные версии:
-  - `:latest` - последняя master-версия, базируется на `php:7.4.25-apache`
-  - `:latest_php8` - последняя master-версия, базируется на `php:8.3.9-apache`
-  - `:latest_php7` - последняя master-версия, базируется на `php:7.4.25-apache`
-  - `:master_XXXXXX_php8` - master-версии XXXXXX, базируются на `php:8.3.9-apache`
-  - `:master_XXXXXX_php7` - master-версии XXXXXX, базируются на `php:7.4.25-apache`
+  - `:latest` - последняя master-версия, базируется на `php:7.4.33-apache`
+  - `:latest_php8` - последняя master-версия, базируется на `php:8.4.1-apache`
+  - `:latest_php7` - последняя master-версия, базируется на `php:7.4.33-apache`
+  - `:master_XXXXXX_php8` - master-версии XXXXXX, базируются на `php:8.4.1-apache`
+  - `:master_XXXXXX_php7` - master-версии XXXXXX, базируются на `php:7.4.33-apache`
 - Альфа версии:
-  - `:alpha` - последняя alpha-версия, базируется на `php:7.4.25-apache`
-  - `:alpha_php8` - последняя alpha-версия, базируется на `php:8.3.9-apache`
-  - `:alpha_php7` - последняя alpha-версия, базируется на `php:7.4.25-apache`
-  - `:alpha_XXXXXX_php8` - alpha-версии XXXXXX, базируются на `php:8.3.9-apache`
-  - `:alpha_XXXXXX_php7` - alpha-версии XXXXXX, базируются на `php:7.4.25-apache`
+  - `:alpha` - последняя alpha-версия, базируется на `php:7.4.33-apache`
+  - `:alpha_php8` - последняя alpha-версия, базируется на `php:8.4.1-apache`
+  - `:alpha_php7` - последняя alpha-версия, базируется на `php:7.4.33-apache`
+  - `:alpha_XXXXXX_php8` - alpha-версии XXXXXX, базируются на `php:8.4.1-apache`
+  - `:alpha_XXXXXX_php7` - alpha-версии XXXXXX, базируются на `php:7.4.33-apache`
