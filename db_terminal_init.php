@@ -14,8 +14,13 @@ $retryCount = 0;
 
 echo "Initializing database with db_terminal.sql content..." . PHP_EOL;
 while ($retryCount < $maxRetries) {
-	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-	if ($mysqli->connect_error) {
+	try {
+		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		$dbConnectError = $mysqli->connect_error;
+	} catch (mysqli_sql_exception $e) {
+		$dbConnectError = true;
+	}
+	if ($dbConnectError) {
 		echo "Connection failed: " . $mysqli->connect_error . ". Is database still starting up?" . PHP_EOL;
 		echo "Retrying in $retryInterval seconds..." . PHP_EOL;
 		sleep($retryInterval);
@@ -33,17 +38,20 @@ while ($retryCount < $maxRetries) {
 			$db_dump = file_get_contents('db_terminal.sql');
 			$sqlsArray = preg_split('/;[\n\r]/', $db_dump);
 			foreach($sqlsArray as $sql) {
-				if ($mysqli->multi_query($sql)) {
-					do {
-						if ($result = $mysqli->store_result()) {
-							$result->free();
-						}
-					} while ($mysqli->more_results() && $mysqli->next_result());
-				}
-				if ($mysqli->errno) {
-					echo "Initialization failed." . PHP_EOL;
-					var_dump($mysqli->error);
-					break;
+				$sql = trim($sql);
+				if (!empty($sql)) {
+					if ($mysqli->multi_query($sql)) {
+						do {
+							if ($result = $mysqli->store_result()) {
+								$result->free();
+							}
+						} while ($mysqli->more_results() && $mysqli->next_result());
+					}
+					if ($mysqli->errno) {
+						echo "Initialization failed." . PHP_EOL;
+						var_dump($mysqli->error);
+						break;
+					}
 				}
 			}
 			if (!$mysqli->errno) {
