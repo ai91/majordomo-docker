@@ -1,11 +1,18 @@
 FROM php:${phpTag}
 
+ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+#RUN apt update && \
+#    apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client && \
+#    docker-php-ext-install sockets && \
+#    docker-php-ext-install gd && \
+#    docker-php-ext-install mysqli && \
+#    docker-php-ext-enable mysqli && \
+#    a2enmod rewrite
+
 RUN apt update && \
     apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client && \
-    docker-php-ext-install sockets && \
-    docker-php-ext-install gd && \
-    docker-php-ext-install mysqli && \
-    docker-php-ext-enable mysqli && \
+    install-php-extensions sockets gd mysqli && \
     a2enmod rewrite
 
 COPY majordomo.sh /usr/local/bin/
