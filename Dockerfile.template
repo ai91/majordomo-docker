@@ -1,12 +1,20 @@
 FROM php:${phpTag}
 
-RUN apt update && \
-    apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client && \
-    docker-php-ext-install mysqli && \
-    docker-php-ext-install sockets && \
-    docker-php-ext-install gd && \
-    docker-php-ext-enable mysqli && \
-    a2enmod rewrite
+#RUN apt update && \
+#    apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client && \
+#    docker-php-ext-install mysqli && \
+#    docker-php-ext-install sockets && \
+#    docker-php-ext-install gd && \
+#    docker-php-ext-enable mysqli && \
+#    a2enmod rewrite
+
+RUN apt update
+RUN apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client
+RUN docker-php-ext-install mysqli 
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-install gd 
+RUN docker-php-ext-enable mysqli 
+RUN a2enmod rewrite
 
 COPY majordomo.sh /usr/local/bin/
 
