@@ -22,13 +22,13 @@ Since `majordomo-docker` contains the latest version of the `MajorDoMo` kernel (
 A list of available tags can be found at [docker-hub](https://hub.docker.com/r/ai91/majordomo-docker/tags).
 - Stable versions:
   - `:latest` is the latest master version, based on `php:7.4.33-apache`.
-  - `:latest_php8` - latest master version, based on `php:8.4.1-apache`.
+  - `:latest_php8` - latest master version, based on `php:8.4.4-apache`.
   - `:latest_php7` - latest master version, based on `php:7.4.33-apache`.
-  - `:master_XXXXXX_php8` - XXXXXX master versions, based on `php:8.4.1-apache`.
+  - `:master_XXXXXX_php8` - XXXXXX master versions, based on `php:8.4.4-apache`.
   - `:master_XXXXXX_php7` - Master versions of XXXXXX, based on `php:7.4.33-apache`.
 - Alpha versions:
   - `:alpha` - latest alpha version, based on `php:7.4.33-apache`.
-  - `:alpha_php8` - latest alpha release, based on `php:8.4.1-apache`.
+  - `:alpha_php8` - latest alpha release, based on `php:8.4.4-apache`.
   - `:alpha_php7` - latest alpha release, based on `php:7.4.33-apache`.
-  - `:alpha_XXXXXX_php8` - alpha versions of XXXXXX, based on `php:8.4.1-apache`.
+  - `:alpha_XXXXXX_php8` - alpha versions of XXXXXX, based on `php:8.4.4-apache`.
   - `:alpha_XXXXXX_php7` - Alpha versions of XXXXXX, based on `php:7.4.33-apache`.
