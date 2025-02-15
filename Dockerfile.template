@@ -2,9 +2,9 @@ FROM php:${phpTag}
 
 RUN apt update && \
     apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client libgd-dev && \
+    docker-php-ext-install mysqli && \
     docker-php-ext-install sockets && \
     docker-php-ext-install gd && \
-    docker-php-ext-install mysqli && \
     docker-php-ext-enable mysqli && \
     a2enmod rewrite && \
     rm -rf /var/lib/apt/lists/*
