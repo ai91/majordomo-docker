@@ -35,7 +35,7 @@ jobs:
       shell: bash
       run: |
         php7=7.4.33
-        php8=8.4.3
+        php8=8.4.4
         echo "php7_version=${php7}" >> $GITHUB_OUTPUT
         echo "php8_version=${php8}" >> $GITHUB_OUTPUT
         echo "master_php7_tag=master_$(git ls-remote https://github.com/sergejey/majordomo refs/heads/master | cut -c 1-7 | tr '/a-z/' '/A-Z/')_php${php7}" >> "$GITHUB_OUTPUT"
