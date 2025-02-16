@@ -44,8 +44,21 @@ jobs:
       run: |
         docker buildx create --name limitedbuilder --use --driver docker-container
         
-        # Apply resource limits to the BuildKit container
-        CONTAINER_ID=$(docker ps --filter "name=buildx_buildkit_limitedbuilder0" --format "{{.ID}}")
+        # Force the builder to start by running `inspect`
+        docker buildx inspect --bootstrap limitedbuilder
+
+        # Wait a few seconds to ensure the container is up
+        sleep 30
+
+        # Get the container ID
+        CONTAINER_ID=$(docker ps --filter "name=buildx_buildkit_limitedbuilder" --format "{{.ID}}")
+
+        if [ -n "$CONTAINER_ID" ]; then
+          docker update --memory 4g --cpus 2 $CONTAINER_ID
+        else
+          echo "Error: BuildKit container not found!"
+          exit 1
+        fi        
         docker update --memory 4g --cpus 2 $CONTAINER_ID
     - name: Build and push
       uses: docker/build-push-action@v6
