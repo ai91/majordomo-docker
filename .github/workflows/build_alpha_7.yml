@@ -42,7 +42,11 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Set up Docker Buildx
       run: |
-        docker buildx create --name limitedbuilder --use --driver docker-container --driver-opt memory=4g --driver-opt cpus=2
+        docker buildx create --name limitedbuilder --use --driver docker-container
+        
+        # Apply resource limits to the BuildKit container
+        CONTAINER_ID=$(docker ps --filter "name=buildx_buildkit_limitedbuilder0" --format "{{.ID}}")
+        docker update --memory 4g --cpus 2 $CONTAINER_ID
     - name: Build and push
       uses: docker/build-push-action@v6
       env:
