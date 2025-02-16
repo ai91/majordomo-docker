@@ -42,8 +42,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Set up Docker Buildx
       run: |
-        docker buildx create --name limitedbuilder --use --driver docker-container \
-          --buildkitd-flags "--oci-worker-memory 4g --oci-worker-cpu 2 --oci-worker-parallelism 1"
+        docker buildx create --name limitedbuilder --use --driver docker-container --driver-opt memory=4g --driver-opt cpus=2
     - name: Build and push
       uses: docker/build-push-action@v6
       env:
