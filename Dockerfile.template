@@ -1,8 +1,7 @@
 FROM php:${phpTag}
 
-RUN dpkg --configure -a && apt update && \
+RUN apt update && \
     apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client libgd-dev && \
-    apt install -f && \    
     docker-php-ext-install mysqli && \
     docker-php-ext-install sockets && \
     docker-php-ext-install gd && \
