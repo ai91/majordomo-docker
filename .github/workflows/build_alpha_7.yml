@@ -54,7 +54,7 @@ jobs:
         CONTAINER_ID=$(docker ps --filter "name=buildx_buildkit_limitedbuilder" --format "{{.ID}}")
 
         if [ -n "$CONTAINER_ID" ]; then
-          docker update --memory 4g --cpus 2 $CONTAINER_ID
+          docker update --memory 4g --memory-swap 4g --cpus 2 $CONTAINER_ID
         else
           echo "Error: BuildKit container not found!"
           exit 1
