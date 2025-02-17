@@ -32,38 +32,22 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3.3.0
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      uses: docker/setup-buildx-action@v3.8.0
       with:
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
         install: true
-        driver: docker-container
-        driver-opts: network=host
-    - name: Force Buildx Builder to Start
-      run: docker buildx inspect --bootstrap
-    - name: Increase BuildKit Memory Limit
-      run: |
-        sleep 10  # Give BuildKit time to start
-        CONTAINER_ID=$(docker ps --filter "name=buildx_buildkit" --format "{{.ID}}")
-        if [ -n "$CONTAINER_ID" ]; then
-          docker update --memory 8g --memory-swap 8g --cpus 4 $CONTAINER_ID
-        else
-          echo "Error: BuildKit container not found!"
-          exit 1
-        fi
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v6.10.0
       env:
         BUILDKIT_PROGRESS: plain
       with:
         context: .
         platforms: linux/arm/v5,linux/386,linux/arm64/v8,linux/arm/v7,linux/s390x,linux/ppc64le,linux/amd64,linux/mips64le
-        build-args: |
-          MAKEFLAGS=-j1
         push: true
         tags: ai91/majordomo-docker:${{ inputs.alpha_php7_tag }}, ai91/majordomo-docker:alpha_php7, ai91/majordomo-docker:alpha
     - name: Clean Up Docker Buildx
