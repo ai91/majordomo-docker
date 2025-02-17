@@ -1,8 +1,7 @@
 FROM php:${phpTag}
 
-RUN apt clean && \
-    sed -i 's|http://deb.debian.org/|http://ftp.debian.org/|g' /etc/apt/sources.list && \
-    apt update --allow-releaseinfo-change && \
+RUN apt update --allow-releaseinfo-change && \
+    apt upgrade -y && \
     apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client libgd-dev \
         build-essential autoconf libtool pkg-config && \
     docker-php-ext-install mysqli && \
