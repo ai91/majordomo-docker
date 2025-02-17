@@ -1,6 +1,7 @@
 FROM php:${phpTag}
 
-RUN apt update && \
+RUN apt clean && \
+    apt update --allow-releaseinfo-change && \
     apt install -y iputils-ping rsync zlib1g-dev libpng-dev mariadb-client libgd-dev \
         build-essential autoconf libtool pkg-config && \
     docker-php-ext-install mysqli && \
