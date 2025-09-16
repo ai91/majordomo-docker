@@ -20,8 +20,8 @@ jobs:
         id: check
         shell: bash
         run: |
-          echo "alpha_php7_tag = ${{ needs.configure-params.outputs.alpha_php7_tag }}"
-          docker manifest inspect ai91/majordomo-docker:${{ needs.configure-params.outputs.alpha_php7_tag }} > /dev/null 2>&1 && (echo "trigger_build=false"  >> "$GITHUB_OUTPUT") || (echo "trigger_build=true" >> "$GITHUB_OUTPUT")
+          echo "alpha_php8_tag = ${{ needs.configure-params.outputs.alpha_php8_tag }}"
+          docker manifest inspect ai91/majordomo-docker:${{ needs.configure-params.outputs.alpha_php8_tag }} > /dev/null 2>&1 && (echo "trigger_build=false"  >> "$GITHUB_OUTPUT") || (echo "trigger_build=true" >> "$GITHUB_OUTPUT")
 
   trigger-build:
     name: Trigger build alpha
