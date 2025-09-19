@@ -5,6 +5,7 @@ RUN apt update && \
         build-essential autoconf libtool pkg-config ffmpeg && \
     docker-php-ext-install mysqli && \
     docker-php-ext-install sockets && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install gd && \
     docker-php-ext-enable mysqli && \
     a2enmod rewrite && \
@@ -23,4 +24,5 @@ COPY config-docker.php /var/www/majordomo/config.php
 COPY db_terminal_init.php /var/www/majordomo/db_terminal_init.php
 
 CMD ["/bin/sh", "/usr/local/bin/majordomo.sh"]
+
 
